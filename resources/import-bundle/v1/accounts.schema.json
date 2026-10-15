@@ -1,0 +1,68 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/accounts.schema.json",
+    "title": "Chart of accounts entry",
+    "description": "List parents before their children. Groups map to the onboarded group of the same type; any account whose code already exists is mapped to it.",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "code", "name", "kind"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32,
+            "pattern": "^\\S+$"
+        },
+        "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "kind": {
+            "enum": ["group", "title", "subsidiary"]
+        },
+        "group_type": {
+            "enum": ["income", "expense", "other", null]
+        },
+        "parent_key": {
+            "$ref": "common.schema.json#/$defs/nullable_key_ref"
+        },
+        "remarks": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "is_locked": {
+            "type": "boolean"
+        },
+        "is_active": {
+            "type": "boolean"
+        }
+    },
+    "if": {
+        "properties": {
+            "kind": {
+                "const": "group"
+            }
+        }
+    },
+    "then": {
+        "required": ["group_type"],
+        "properties": {
+            "group_type": {
+                "type": "string"
+            }
+        }
+    },
+    "else": {
+        "required": ["parent_key"],
+        "properties": {
+            "parent_key": {
+                "type": "string"
+            }
+        }
+    }
+}

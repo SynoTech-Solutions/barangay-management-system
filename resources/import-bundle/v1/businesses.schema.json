@@ -1,0 +1,85 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/businesses.schema.json",
+    "title": "Business",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "name", "category", "nature", "ownership_type"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "source_number": {
+            "$ref": "common.schema.json#/$defs/source_number"
+        },
+        "import_note": {
+            "$ref": "common.schema.json#/$defs/import_note"
+        },
+        "name": {
+            "type": "string",
+            "maxLength": 150,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "owner_resident_key": {
+            "$ref": "common.schema.json#/$defs/nullable_key_ref"
+        },
+        "owner_name": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "category": {
+            "$ref": "common.schema.json#/$defs/label"
+        },
+        "nature": {
+            "$ref": "common.schema.json#/$defs/label"
+        },
+        "ownership_type": {
+            "$ref": "common.schema.json#/$defs/label"
+        },
+        "purok_key": {
+            "$ref": "common.schema.json#/$defs/nullable_key_ref"
+        },
+        "street_address": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "plate_number": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "operating_since": {
+            "$ref": "common.schema.json#/$defs/nullable_date"
+        },
+        "capitalization": {
+            "$ref": "common.schema.json#/$defs/nullable_money"
+        },
+        "gross_receipts": {
+            "$ref": "common.schema.json#/$defs/nullable_money"
+        },
+        "status": {
+            "enum": ["active", "inactive"]
+        },
+        "registered_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        }
+    },
+    "anyOf": [
+        {
+            "required": ["owner_resident_key"],
+            "properties": {
+                "owner_resident_key": {
+                    "type": "string"
+                }
+            }
+        },
+        {
+            "required": ["owner_name"],
+            "properties": {
+                "owner_name": {
+                    "type": "string"
+                }
+            }
+        }
+    ]
+}

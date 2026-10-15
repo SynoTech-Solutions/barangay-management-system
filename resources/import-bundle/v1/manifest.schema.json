@@ -1,0 +1,92 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/manifest.schema.json",
+    "title": "Import bundle manifest",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["format", "version", "generated_at", "generator", "entities"],
+    "properties": {
+        "format": {
+            "const": "bms-import-bundle"
+        },
+        "version": {
+            "const": 1
+        },
+        "barangay_psgc": {
+            "type": ["string", "null"],
+            "pattern": "^[0-9]{10}$"
+        },
+        "generated_at": {
+            "$ref": "common.schema.json#/$defs/date_time"
+        },
+        "generator": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "version"],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                },
+                "version": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50
+                }
+            }
+        },
+        "entities": {
+            "type": "object",
+            "propertyNames": {
+                "enum": [
+                    "lookups",
+                    "puroks",
+                    "users",
+                    "color_categories",
+                    "residents",
+                    "family_members",
+                    "educations",
+                    "work_histories",
+                    "id_cards",
+                    "barangay_clearances",
+                    "indigency_certificates",
+                    "businesses",
+                    "business_clearances",
+                    "cedulas",
+                    "blotters",
+                    "collection_types",
+                    "other_collections",
+                    "accounts",
+                    "budgets",
+                    "bank_accounts",
+                    "vendors",
+                    "vouchers",
+                    "checks",
+                    "liquidations",
+                    "form_picklists",
+                    "form_templates",
+                    "form_transactions",
+                    "sms_groups",
+                    "sms_templates"
+                ]
+            },
+            "additionalProperties": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["file", "count"],
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "pattern": "^[A-Za-z0-9_-][A-Za-z0-9._-]*\\.jsonl$"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
+            }
+        }
+    }
+}

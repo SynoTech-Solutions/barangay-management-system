@@ -1,0 +1,143 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/common.schema.json",
+    "title": "Shared definitions for bundle format v1",
+    "$defs": {
+        "source_key": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 191,
+            "pattern": "^\\S(?:.*\\S)?$",
+            "description": "Opaque key, unique per entity within the bundle."
+        },
+        "key_ref": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 191,
+            "pattern": "^\\S(?:.*\\S)?$",
+            "description": "source_key of a record in another entity."
+        },
+        "nullable_key_ref": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 191,
+            "pattern": "^\\S(?:.*\\S)?$"
+        },
+        "date": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "nullable_date": {
+            "type": ["string", "null"],
+            "format": "date",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "date_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "RFC 3339 date-time with an offset, for example 2024-03-05T09:15:00+08:00."
+        },
+        "nullable_date_time": {
+            "type": ["string", "null"],
+            "format": "date-time"
+        },
+        "money": {
+            "type": "string",
+            "pattern": "^[0-9]{1,10}\\.[0-9]{2}$",
+            "description": "Non-negative decimal string with exactly two decimals (ADR 0007)."
+        },
+        "nullable_money": {
+            "type": ["string", "null"],
+            "pattern": "^[0-9]{1,10}\\.[0-9]{2}$"
+        },
+        "positive_money": {
+            "type": "string",
+            "pattern": "^(?!0+\\.00$)[0-9]{1,10}\\.[0-9]{2}$"
+        },
+        "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "pattern": "\\S",
+            "description": "Lookup value label, matched by normalized label within its type."
+        },
+        "nullable_label": {
+            "type": ["string", "null"],
+            "maxLength": 255,
+            "pattern": "\\S"
+        },
+        "source_number": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Original display number of the document."
+        },
+        "import_note": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "attachment_path": {
+            "type": "string",
+            "maxLength": 255,
+            "pattern": "^[A-Za-z0-9_-][A-Za-z0-9._-]*(?:/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$",
+            "description": "Path relative to the bundle files/ folder. No leading slash, no backslash, no segment starting with a dot."
+        },
+        "nullable_attachment_path": {
+            "type": ["string", "null"],
+            "maxLength": 255,
+            "pattern": "^[A-Za-z0-9_-][A-Za-z0-9._-]*(?:/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$"
+        },
+        "mobile_number": {
+            "type": "string",
+            "pattern": "^(?:\\+?63|0)?9[0-9]{9}$",
+            "description": "Philippine mobile number without separators: 09XXXXXXXXX, 639XXXXXXXXX, or +639XXXXXXXXX."
+        },
+        "nullable_mobile_number": {
+            "type": ["string", "null"],
+            "pattern": "^(?:\\+?63|0)?9[0-9]{9}$"
+        },
+        "issued_status": {
+            "enum": ["issued", "released", "cancelled"]
+        },
+        "lookup_type": {
+            "enum": [
+                "blood-type",
+                "body-type",
+                "course",
+                "employment-status",
+                "health-issue",
+                "income-bracket",
+                "nationality",
+                "position",
+                "profession",
+                "religion",
+                "school",
+                "skill",
+                "title",
+                "residence-type",
+                "company",
+                "relationship",
+                "sector",
+                "clearance-type",
+                "clearance-purpose",
+                "business-category",
+                "business-nature",
+                "business-ownership-type",
+                "blotter-incident-type",
+                "certificate-purpose",
+                "form-template-type"
+            ]
+        },
+        "barangay_role": {
+            "enum": [
+                "barangay-admin",
+                "secretary",
+                "treasurer",
+                "bookkeeper",
+                "clerk",
+                "viewer"
+            ]
+        }
+    }
+}

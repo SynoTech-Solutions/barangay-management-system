@@ -1,0 +1,43 @@
+# Configuration
+
+Environment variables are read only in `config/*.php`. `config/bms.php` holds application settings. At boot, `BmsSettings::fromArray()` validates them and builds an immutable `BmsSettings` object; the app fails to start and lists every problem if anything is invalid. Code receives `BmsSettings` through dependency injection and never calls `env()` or `config('bms...')` directly.
+
+| Variable                                 | Default        | Meaning                                                                                                                                                                                  |
+| ---------------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BMS_FEATURES_FORCED_OFF`                | empty          | Comma-separated flags forced off for every barangay. Unknown flags fail boot.                                                                                                            |
+| `BMS_FEATURES_OVERRIDE_CACHE_SECONDS`    | 60             | Cache TTL for flag overrides. 0 = no cache.                                                                                                                                              |
+| `BMS_LOGIN_MAX_ATTEMPTS_PER_MINUTE`      | 5              | Sign-in attempts per username and IP per minute. Also used for password changes.                                                                                                         |
+| `BMS_TWO_FACTOR_MAX_ATTEMPTS_PER_MINUTE` | 5              | Two-factor code attempts per minute.                                                                                                                                                     |
+| `BMS_PASSWORD_MIN_LENGTH`                | 12             | Minimum password length. Minimum allowed value: 8.                                                                                                                                       |
+| `BMS_PASSWORD_CHECK_BREACHED`            | true           | In production, reject passwords found in known breaches (Have I Been Pwned range API).                                                                                                   |
+| `BMS_AUDIT_RETENTION_DAYS`               | 0              | Reserved for audit pruning. 0 = keep forever.                                                                                                                                            |
+| `BMS_DEFAULT_PAGE_SIZE`                  | 25             | Rows per page when the client does not ask.                                                                                                                                              |
+| `BMS_MAX_PAGE_SIZE`                      | 100            | Hard cap on rows per page. Must be at least the default.                                                                                                                                 |
+| `BMS_DOCUMENT_NUMBER_WIDTH`              | 6              | Zero-padded width of document sequence numbers (1 to 12).                                                                                                                                |
+| `BMS_ID_CARD_VALIDITY_MONTHS`            | 12             | Months added to the issue date for "Valid until" on barangay ID cards when `id-card-validity` is on (1 to 120).                                                                          |
+| `BMS_REQUEST_ID_HEADER`                  | `X-Request-Id` | Header used to accept and return the request ID.                                                                                                                                         |
+| `BMS_PDF_QPDF_BINARY`                    | empty          | Absolute path of `qpdf` for filling PDF forms. Empty: PDF form printing answers `pdf_filler_not_configured`.                                                                             |
+| `BMS_PDF_FILL_TIMEOUT_SECONDS`           | 30             | Time limit for one `qpdf` call (1 to 300).                                                                                                                                               |
+| `BMS_SMS_DRIVER`                         | `log`          | SMS transport: `log` (writes a masked log line, nothing leaves the server), `http` (generic JSON gateway), `null` (rejects every message as `not_configured`). Unknown values fail boot. |
+| `BMS_SMS_HTTP_URL`                       | empty          | Gateway endpoint for the `http` driver. Required (http or https URL) when the driver is `http`. Never echoed in boot errors.                                                             |
+| `BMS_SMS_HTTP_TOKEN`                     | empty          | Bearer token for the `http` driver. Required when the driver is `http`. Never logged.                                                                                                    |
+| `BMS_SMS_HTTP_SENDER`                    | empty          | Optional sender name sent to the gateway (at most 11 characters).                                                                                                                        |
+| `BMS_SMS_HTTP_TIMEOUT_SECONDS`           | 10             | Total time limit of one gateway call (1 to 120).                                                                                                                                         |
+| `BMS_SMS_HTTP_CONNECT_TIMEOUT_SECONDS`   | 5              | Connection time limit of one gateway call (1 to 120).                                                                                                                                    |
+| `BMS_SMS_HTTP_RETRIES`                   | 0              | Extra immediate tries on connection failures inside one attempt (0 to 5). Keep 0 unless the gateway deduplicates on `reference`.                                                         |
+| `BMS_SMS_HTTP_RETRY_DELAY_MS`            | 500            | Pause between those immediate tries (0 to 10000).                                                                                                                                        |
+| `BMS_SMS_MAX_ATTEMPTS`                   | 5              | Gateway attempts per message before it is marked failed (1 to 20).                                                                                                                       |
+| `BMS_SMS_RETRY_BASE_SECONDS`             | 60             | First retry delay; doubles per attempt (1 to 86400).                                                                                                                                     |
+| `BMS_SMS_RETRY_MAX_SECONDS`              | 3600           | Longest retry delay. Must be at least the base.                                                                                                                                          |
+| `BMS_SMS_RATE_PER_MINUTE`                | 30             | Messages handed to the gateway per barangay per minute (1 to 10000). Excess jobs go back to the queue.                                                                                   |
+| `BMS_SMS_STUCK_AFTER_MINUTES`            | 15             | A message in `sending` longer than this is requeued by `bms:sms:dispatch-stuck` (1 to 1440).                                                                                             |
+| `BMS_SMS_MAX_RECIPIENTS`                 | 500            | Hard cap on recipients per send, including sends from resident lists (1 to 10000).                                                                                                       |
+| `BMS_SMS_RETENTION_DAYS`                 | 0              | Days after which `bms:sms:prune` erases the text and number of finished messages. 0 = keep (0 to 3650).                                                                                  |
+| `HASH_DRIVER`                            | `argon2id`     | Password hashing algorithm.                                                                                                                                                              |
+
+Laravel's own settings (`APP_*`, `DB_*`, `CACHE_STORE`, `QUEUE_CONNECTION`, `SESSION_*`, `MAIL_*`) are documented in `.env.example`.
+
+## Config versus flags
+
+- Config: how something behaves, set per environment by the operator, needs a config reload.
+- Flags: whether something runs, set per barangay at runtime, audited. See `feature-flags.md`.

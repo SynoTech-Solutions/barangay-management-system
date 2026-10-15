@@ -1,0 +1,25 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/sms_templates.schema.json",
+    "title": "Text message template",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "title", "body"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "title": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1600,
+            "pattern": "\\S"
+        }
+    }
+}

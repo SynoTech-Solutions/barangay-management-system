@@ -1,0 +1,58 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/liquidations.schema.json",
+    "title": "Cash advance liquidation",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "voucher_key", "status", "recorded_at"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "source_number": {
+            "$ref": "common.schema.json#/$defs/source_number"
+        },
+        "import_note": {
+            "$ref": "common.schema.json#/$defs/import_note"
+        },
+        "voucher_key": {
+            "$ref": "common.schema.json#/$defs/key_ref"
+        },
+        "liquidated_on": {
+            "$ref": "common.schema.json#/$defs/nullable_date"
+        },
+        "or_number": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "or_date": {
+            "$ref": "common.schema.json#/$defs/nullable_date"
+        },
+        "status": {
+            "enum": ["for-clearing", "cleared"]
+        },
+        "recorded_at": {
+            "$ref": "common.schema.json#/$defs/date_time"
+        },
+        "cleared_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "items": {
+            "type": "array",
+            "maxItems": 500,
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["voucher_item_key", "actual_amount"],
+                "properties": {
+                    "voucher_item_key": {
+                        "$ref": "common.schema.json#/$defs/key_ref"
+                    },
+                    "actual_amount": {
+                        "$ref": "common.schema.json#/$defs/money"
+                    }
+                }
+            }
+        }
+    }
+}

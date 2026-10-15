@@ -1,0 +1,64 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/id_cards.schema.json",
+    "title": "Barangay ID card",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "resident_key", "status", "issued_at"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "resident_key": {
+            "$ref": "common.schema.json#/$defs/key_ref"
+        },
+        "source_number": {
+            "$ref": "common.schema.json#/$defs/source_number"
+        },
+        "import_note": {
+            "$ref": "common.schema.json#/$defs/import_note"
+        },
+        "status": {
+            "$ref": "common.schema.json#/$defs/issued_status"
+        },
+        "issued_at": {
+            "$ref": "common.schema.json#/$defs/date_time"
+        },
+        "released_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "cancelled_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "cancel_reason": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "verified_by_name": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "certified_by_name": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "ctc_number": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "ctc_place": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "ctc_date": {
+            "$ref": "common.schema.json#/$defs/nullable_date"
+        },
+        "or_number": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "amount": {
+            "$ref": "common.schema.json#/$defs/money"
+        }
+    }
+}

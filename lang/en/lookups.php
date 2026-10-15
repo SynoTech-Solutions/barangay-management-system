@@ -1,0 +1,31 @@
+<?php
+
+return [
+    'types' => [
+        'blood-type' => 'Blood types',
+        'body-type' => 'Body types',
+        'course' => 'Courses',
+        'employment-status' => 'Employment statuses',
+        'health-issue' => 'Health issues',
+        'income-bracket' => 'Monthly income brackets',
+        'nationality' => 'Nationalities',
+        'position' => 'Positions',
+        'profession' => 'Professions',
+        'religion' => 'Religions',
+        'school' => 'Schools',
+        'skill' => 'Skills',
+        'title' => 'Name titles',
+        'residence-type' => 'Types of residence',
+        'company' => 'Companies',
+        'relationship' => 'Family relationships',
+        'sector' => 'Sectors',
+        'clearance-type' => 'Clearance types',
+        'clearance-purpose' => 'Clearance purposes',
+        'business-category' => 'Business categories',
+        'business-nature' => 'Business natures',
+        'business-ownership-type' => 'Business ownership types',
+        'blotter-incident-type' => 'Blotter incident types',
+        'certificate-purpose' => 'Certificate purposes',
+        'form-template-type' => 'Form template types',
+    ],
+];

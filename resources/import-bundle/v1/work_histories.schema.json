@@ -1,0 +1,43 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/work_histories.schema.json",
+    "title": "Work history",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "source_key",
+        "resident_key",
+        "company",
+        "position",
+        "employment_status"
+    ],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "resident_key": {
+            "$ref": "common.schema.json#/$defs/key_ref"
+        },
+        "company": {
+            "$ref": "common.schema.json#/$defs/label"
+        },
+        "position": {
+            "$ref": "common.schema.json#/$defs/label"
+        },
+        "employment_status": {
+            "$ref": "common.schema.json#/$defs/label"
+        },
+        "started_on": {
+            "$ref": "common.schema.json#/$defs/nullable_date"
+        },
+        "ended_on": {
+            "$ref": "common.schema.json#/$defs/nullable_date"
+        },
+        "is_current": {
+            "type": "boolean"
+        },
+        "deleted_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        }
+    }
+}

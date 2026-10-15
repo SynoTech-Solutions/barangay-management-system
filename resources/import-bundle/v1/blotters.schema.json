@@ -1,0 +1,112 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/blotters.schema.json",
+    "title": "Blotter entry",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "source_key",
+        "incident_type",
+        "reported_at",
+        "narrative",
+        "status"
+    ],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "source_number": {
+            "$ref": "common.schema.json#/$defs/source_number"
+        },
+        "import_note": {
+            "$ref": "common.schema.json#/$defs/import_note"
+        },
+        "incident_type": {
+            "$ref": "common.schema.json#/$defs/label"
+        },
+        "incident_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "reported_at": {
+            "$ref": "common.schema.json#/$defs/date_time"
+        },
+        "place": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "narrative": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20000,
+            "pattern": "\\S"
+        },
+        "status": {
+            "enum": ["open", "resolved", "cancelled"]
+        },
+        "resolved_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "resolution_notes": {
+            "type": ["string", "null"],
+            "maxLength": 20000
+        },
+        "cancelled_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "cancel_reason": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "parties": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["role"],
+                "properties": {
+                    "role": {
+                        "enum": ["complainant", "respondent"]
+                    },
+                    "resident_key": {
+                        "$ref": "common.schema.json#/$defs/nullable_key_ref"
+                    },
+                    "name": {
+                        "type": ["string", "null"],
+                        "maxLength": 255
+                    },
+                    "address": {
+                        "type": ["string", "null"],
+                        "maxLength": 255
+                    }
+                },
+                "anyOf": [
+                    {
+                        "required": ["resident_key"],
+                        "properties": {
+                            "resident_key": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "required": ["name"],
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "photos": {
+            "type": "array",
+            "maxItems": 20,
+            "uniqueItems": true,
+            "items": {
+                "$ref": "common.schema.json#/$defs/attachment_path"
+            }
+        }
+    }
+}

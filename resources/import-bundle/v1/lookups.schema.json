@@ -1,0 +1,27 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/lookups.schema.json",
+    "title": "Lookup value",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "type", "label"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "type": {
+            "$ref": "common.schema.json#/$defs/lookup_type"
+        },
+        "label": {
+            "$ref": "common.schema.json#/$defs/label"
+        },
+        "sort_order": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+        },
+        "is_active": {
+            "type": "boolean"
+        }
+    }
+}

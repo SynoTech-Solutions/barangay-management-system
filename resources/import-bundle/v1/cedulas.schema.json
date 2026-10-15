@@ -1,0 +1,99 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/cedulas.schema.json",
+    "title": "Community tax certificate (cedula)",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "source_key",
+        "resident_key",
+        "status",
+        "issued_at",
+        "basic_tax",
+        "amount"
+    ],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "resident_key": {
+            "$ref": "common.schema.json#/$defs/key_ref"
+        },
+        "source_number": {
+            "$ref": "common.schema.json#/$defs/source_number"
+        },
+        "import_note": {
+            "$ref": "common.schema.json#/$defs/import_note"
+        },
+        "form_number": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "tax_year": {
+            "type": ["integer", "null"],
+            "minimum": 1900,
+            "maximum": 2999
+        },
+        "place_of_issue": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "is_exempt": {
+            "type": "boolean"
+        },
+        "status": {
+            "$ref": "common.schema.json#/$defs/issued_status"
+        },
+        "issued_at": {
+            "$ref": "common.schema.json#/$defs/date_time"
+        },
+        "released_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "cancelled_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "cancel_reason": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "verified_by_name": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "certified_by_name": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "business_gross_receipts": {
+            "$ref": "common.schema.json#/$defs/money"
+        },
+        "salaries": {
+            "$ref": "common.schema.json#/$defs/money"
+        },
+        "real_property_income": {
+            "$ref": "common.schema.json#/$defs/money"
+        },
+        "basic_tax": {
+            "$ref": "common.schema.json#/$defs/money"
+        },
+        "business_tax": {
+            "$ref": "common.schema.json#/$defs/money"
+        },
+        "salary_tax": {
+            "$ref": "common.schema.json#/$defs/money"
+        },
+        "real_property_tax": {
+            "$ref": "common.schema.json#/$defs/money"
+        },
+        "additional_tax": {
+            "$ref": "common.schema.json#/$defs/money"
+        },
+        "interest": {
+            "$ref": "common.schema.json#/$defs/money"
+        },
+        "amount": {
+            "$ref": "common.schema.json#/$defs/money"
+        }
+    }
+}

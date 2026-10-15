@@ -1,0 +1,88 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/business_clearances.schema.json",
+    "title": "Business clearance",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "business_key", "status", "issued_at"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "business_key": {
+            "$ref": "common.schema.json#/$defs/key_ref"
+        },
+        "source_number": {
+            "$ref": "common.schema.json#/$defs/source_number"
+        },
+        "import_note": {
+            "$ref": "common.schema.json#/$defs/import_note"
+        },
+        "source_control_number": {
+            "$ref": "common.schema.json#/$defs/source_number"
+        },
+        "owner_resident_key": {
+            "$ref": "common.schema.json#/$defs/nullable_key_ref"
+        },
+        "owner_name": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "business_name": {
+            "type": ["string", "null"],
+            "maxLength": 150
+        },
+        "business_address": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "status": {
+            "$ref": "common.schema.json#/$defs/issued_status"
+        },
+        "issued_at": {
+            "$ref": "common.schema.json#/$defs/date_time"
+        },
+        "released_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "cancelled_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "cancel_reason": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "verified_by_name": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "certified_by_name": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "ctc_number": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "ctc_place": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "ctc_date": {
+            "$ref": "common.schema.json#/$defs/nullable_date"
+        },
+        "or_number": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "amount": {
+            "$ref": "common.schema.json#/$defs/money"
+        },
+        "doc_stamp": {
+            "$ref": "common.schema.json#/$defs/money"
+        },
+        "expires_on": {
+            "$ref": "common.schema.json#/$defs/nullable_date"
+        }
+    }
+}

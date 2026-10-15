@@ -1,0 +1,75 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/budgets.schema.json",
+    "title": "Budget",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "fiscal_year", "title", "status", "versions"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "fiscal_year": {
+            "type": "integer",
+            "minimum": 1900,
+            "maximum": 2999
+        },
+        "title": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "status": {
+            "enum": ["draft", "approved"]
+        },
+        "approved_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "versions": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["number"],
+                "properties": {
+                    "number": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 1000
+                    },
+                    "remarks": {
+                        "type": ["string", "null"],
+                        "maxLength": 500
+                    },
+                    "approved_at": {
+                        "$ref": "common.schema.json#/$defs/nullable_date_time"
+                    },
+                    "lines": {
+                        "type": "array",
+                        "maxItems": 5000,
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": ["account_key", "amount"],
+                            "properties": {
+                                "account_key": {
+                                    "$ref": "common.schema.json#/$defs/key_ref"
+                                },
+                                "amount": {
+                                    "$ref": "common.schema.json#/$defs/money"
+                                },
+                                "remarks": {
+                                    "type": ["string", "null"],
+                                    "maxLength": 255
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,64 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/other_collections.schema.json",
+    "title": "Other collection",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "source_key",
+        "collection_type_key",
+        "payer_name",
+        "or_number",
+        "amount",
+        "recorded_at"
+    ],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "source_number": {
+            "$ref": "common.schema.json#/$defs/source_number"
+        },
+        "import_note": {
+            "$ref": "common.schema.json#/$defs/import_note"
+        },
+        "collection_type_key": {
+            "$ref": "common.schema.json#/$defs/key_ref"
+        },
+        "resident_key": {
+            "$ref": "common.schema.json#/$defs/nullable_key_ref"
+        },
+        "payer_name": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "or_number": {
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "amount": {
+            "$ref": "common.schema.json#/$defs/positive_money"
+        },
+        "paid_on": {
+            "$ref": "common.schema.json#/$defs/nullable_date"
+        },
+        "remarks": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "recorded_at": {
+            "$ref": "common.schema.json#/$defs/date_time"
+        },
+        "cancelled_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "cancel_reason": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        }
+    }
+}

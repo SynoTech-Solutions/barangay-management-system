@@ -1,0 +1,22 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/puroks.schema.json",
+    "title": "Purok",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "name"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "is_active": {
+            "type": "boolean"
+        }
+    }
+}

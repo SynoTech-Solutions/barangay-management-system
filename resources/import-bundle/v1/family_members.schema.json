@@ -1,0 +1,39 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/family_members.schema.json",
+    "title": "Family member",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "resident_key", "relationship", "full_name"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "resident_key": {
+            "$ref": "common.schema.json#/$defs/key_ref"
+        },
+        "relationship": {
+            "$ref": "common.schema.json#/$defs/label"
+        },
+        "full_name": {
+            "type": "string",
+            "maxLength": 320,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "birthdate": {
+            "$ref": "common.schema.json#/$defs/nullable_date"
+        },
+        "birth_year": {
+            "type": ["integer", "null"],
+            "minimum": 1800,
+            "maximum": 2200
+        },
+        "related_resident_key": {
+            "$ref": "common.schema.json#/$defs/nullable_key_ref"
+        },
+        "deleted_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        }
+    }
+}

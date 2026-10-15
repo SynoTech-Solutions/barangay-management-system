@@ -1,0 +1,51 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/sms_groups.schema.json",
+    "title": "Text message group",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "name"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "name": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "is_active": {
+            "type": "boolean"
+        },
+        "members": {
+            "type": "array",
+            "maxItems": 10000,
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [],
+                "properties": {
+                    "resident_key": {
+                        "$ref": "common.schema.json#/$defs/key_ref"
+                    },
+                    "mobile_number": {
+                        "$ref": "common.schema.json#/$defs/mobile_number"
+                    },
+                    "label": {
+                        "type": ["string", "null"],
+                        "maxLength": 100
+                    }
+                },
+                "oneOf": [
+                    {
+                        "required": ["resident_key"]
+                    },
+                    {
+                        "required": ["mobile_number"]
+                    }
+                ]
+            }
+        }
+    }
+}

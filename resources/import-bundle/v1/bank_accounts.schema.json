@@ -1,0 +1,43 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/bank_accounts.schema.json",
+    "title": "Bank account",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "source_key",
+        "account_number",
+        "account_name",
+        "depository_bank"
+    ],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "account_number": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "account_name": {
+            "type": "string",
+            "maxLength": 150,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "depository_bank": {
+            "type": "string",
+            "maxLength": 150,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "branch_address": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "is_active": {
+            "type": "boolean"
+        }
+    }
+}

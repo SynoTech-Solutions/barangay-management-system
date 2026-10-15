@@ -1,0 +1,26 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/color_categories.schema.json",
+    "title": "Color category",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "name", "color_hex"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "color_hex": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "is_active": {
+            "type": "boolean"
+        }
+    }
+}

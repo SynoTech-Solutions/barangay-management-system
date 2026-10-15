@@ -1,0 +1,47 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/vendors.schema.json",
+    "title": "Vendor",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "name", "address", "contact_number"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "name": {
+            "type": "string",
+            "maxLength": 150,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "address": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "contact_number": {
+            "type": "string",
+            "maxLength": 50
+        },
+        "email": {
+            "type": ["string", "null"],
+            "format": "email",
+            "maxLength": 150
+        },
+        "contact_person": {
+            "type": ["string", "null"],
+            "maxLength": 150
+        },
+        "position": {
+            "type": ["string", "null"],
+            "maxLength": 100
+        },
+        "tin": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "is_active": {
+            "type": "boolean"
+        }
+    }
+}

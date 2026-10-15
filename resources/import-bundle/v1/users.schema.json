@@ -1,0 +1,37 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/users.schema.json",
+    "title": "Staff account",
+    "description": "Accounts are created inactive with an unusable password. A password field is rejected.",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "username", "name", "role"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "username": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z0-9._-]+$"
+        },
+        "name": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "designation": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "role": {
+            "$ref": "common.schema.json#/$defs/barangay_role"
+        },
+        "created_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "password": false
+    }
+}

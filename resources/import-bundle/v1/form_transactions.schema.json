@@ -1,0 +1,106 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/form_transactions.schema.json",
+    "title": "Issued form",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "source_key",
+        "template_key",
+        "template_version",
+        "resident_key",
+        "status",
+        "issued_at"
+    ],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "source_number": {
+            "$ref": "common.schema.json#/$defs/source_number"
+        },
+        "import_note": {
+            "$ref": "common.schema.json#/$defs/import_note"
+        },
+        "template_key": {
+            "$ref": "common.schema.json#/$defs/key_ref"
+        },
+        "template_version": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "resident_key": {
+            "$ref": "common.schema.json#/$defs/key_ref"
+        },
+        "status": {
+            "$ref": "common.schema.json#/$defs/issued_status"
+        },
+        "issued_at": {
+            "$ref": "common.schema.json#/$defs/date_time"
+        },
+        "released_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "cancelled_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "cancel_reason": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "verified_by_name": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "certified_by_name": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "or_number": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "amount": {
+            "$ref": "common.schema.json#/$defs/money"
+        },
+        "fields": {
+            "type": "array",
+            "maxItems": 60,
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["key", "label", "value"],
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "pattern": "^[a-z][a-z0-9_]{0,39}$"
+                    },
+                    "label": {
+                        "type": "string",
+                        "maxLength": 120,
+                        "minLength": 1,
+                        "pattern": "\\S"
+                    },
+                    "input_type": {
+                        "enum": [
+                            "text",
+                            "resident",
+                            "table",
+                            "check",
+                            "date",
+                            "amount"
+                        ]
+                    },
+                    "value": {
+                        "type": ["string", "number", "boolean", "null"],
+                        "maxLength": 5000
+                    },
+                    "display": {
+                        "type": ["string", "null"],
+                        "maxLength": 5000
+                    }
+                }
+            }
+        }
+    }
+}

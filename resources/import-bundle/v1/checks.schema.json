@@ -1,0 +1,72 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/checks.schema.json",
+    "title": "Check",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "source_key",
+        "bank_account_key",
+        "payee_name",
+        "check_number",
+        "amount",
+        "status",
+        "issued_at"
+    ],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "bank_account_key": {
+            "$ref": "common.schema.json#/$defs/key_ref"
+        },
+        "voucher_key": {
+            "$ref": "common.schema.json#/$defs/nullable_key_ref"
+        },
+        "vendor_key": {
+            "$ref": "common.schema.json#/$defs/nullable_key_ref"
+        },
+        "payee_name": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "check_number": {
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 1,
+            "pattern": "\\S"
+        },
+        "check_date": {
+            "$ref": "common.schema.json#/$defs/nullable_date"
+        },
+        "amount": {
+            "$ref": "common.schema.json#/$defs/positive_money"
+        },
+        "remarks": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "status": {
+            "enum": ["for-release", "released", "cancelled"]
+        },
+        "issued_at": {
+            "$ref": "common.schema.json#/$defs/date_time"
+        },
+        "released_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "received_by_name": {
+            "type": ["string", "null"],
+            "maxLength": 150
+        },
+        "cancelled_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "cancel_reason": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        }
+    }
+}

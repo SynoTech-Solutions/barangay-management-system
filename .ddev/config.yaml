@@ -1,0 +1,38 @@
+name: bms
+type: laravel
+docroot: public
+php_version: '8.4'
+webserver_type: nginx-fpm
+xdebug_enabled: false
+nodejs_version: '22'
+database:
+    type: postgres
+    version: '18'
+disable_settings_management: true
+webimage_extra_packages:
+    - qpdf
+web_environment:
+    - APP_URL=https://bms.ddev.site
+    - DB_CONNECTION=pgsql
+    - DB_HOST=db
+    - DB_PORT=5432
+    - DB_DATABASE=db
+    - DB_USERNAME=db
+    - DB_PASSWORD=db
+    - BMS_PDF_QPDF_BINARY=/usr/bin/qpdf
+web_extra_exposed_ports:
+    - name: vite
+      container_port: 5173
+      http_port: 5172
+      https_port: 5173
+web_extra_daemons:
+    - name: queue
+      command: php artisan queue:work --tries=3 --sleep=3
+      directory: /var/www/html
+    - name: scheduler
+      command: php artisan schedule:work
+      directory: /var/www/html
+hooks:
+    post-start:
+        - exec: psql -U db -d db -tAc "SELECT 1 FROM pg_database WHERE datname = 'bms_test'" | grep -q 1 || createdb -U db bms_test
+          service: db

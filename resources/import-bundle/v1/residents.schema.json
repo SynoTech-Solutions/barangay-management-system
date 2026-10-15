@@ -1,0 +1,218 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://schemas.bms.local/import-bundle/v1/residents.schema.json",
+    "title": "Resident",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["source_key", "last_name", "first_name"],
+    "properties": {
+        "source_key": {
+            "$ref": "common.schema.json#/$defs/source_key"
+        },
+        "source_number": {
+            "$ref": "common.schema.json#/$defs/source_number"
+        },
+        "import_note": {
+            "$ref": "common.schema.json#/$defs/import_note"
+        },
+        "last_name": {
+            "type": "string",
+            "maxLength": 100
+        },
+        "first_name": {
+            "type": "string",
+            "maxLength": 100
+        },
+        "middle_name": {
+            "type": ["string", "null"],
+            "maxLength": 100
+        },
+        "name_extension": {
+            "type": ["string", "null"],
+            "maxLength": 10
+        },
+        "nickname": {
+            "type": ["string", "null"],
+            "maxLength": 100
+        },
+        "birthdate": {
+            "$ref": "common.schema.json#/$defs/nullable_date"
+        },
+        "birthplace_psgc": {
+            "type": ["string", "null"],
+            "pattern": "^[0-9]{9,10}$"
+        },
+        "gender": {
+            "enum": ["male", "female", null]
+        },
+        "civil_status": {
+            "enum": ["single", "married", "widowed", "separated", null]
+        },
+        "height_cm": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 9999.9
+        },
+        "weight_kg": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 9999.9
+        },
+        "title": {
+            "$ref": "common.schema.json#/$defs/nullable_label"
+        },
+        "nationality": {
+            "$ref": "common.schema.json#/$defs/nullable_label"
+        },
+        "religion": {
+            "$ref": "common.schema.json#/$defs/nullable_label"
+        },
+        "blood_type": {
+            "$ref": "common.schema.json#/$defs/nullable_label"
+        },
+        "body_type": {
+            "$ref": "common.schema.json#/$defs/nullable_label"
+        },
+        "health_issue": {
+            "$ref": "common.schema.json#/$defs/nullable_label"
+        },
+        "profession": {
+            "$ref": "common.schema.json#/$defs/nullable_label"
+        },
+        "skill": {
+            "$ref": "common.schema.json#/$defs/nullable_label"
+        },
+        "income_bracket": {
+            "$ref": "common.schema.json#/$defs/nullable_label"
+        },
+        "residence_type": {
+            "$ref": "common.schema.json#/$defs/nullable_label"
+        },
+        "national_id": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "drivers_license": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "tin": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "sss_gsis": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "pagibig": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "philhealth": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "voter_id": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "landline_number": {
+            "type": ["string", "null"],
+            "maxLength": 32
+        },
+        "precinct_number": {
+            "type": ["string", "null"],
+            "maxLength": 16
+        },
+        "is_registered_voter": {
+            "type": "boolean"
+        },
+        "is_living_with_parents": {
+            "type": "boolean"
+        },
+        "is_senior_citizen_member": {
+            "type": "boolean"
+        },
+        "is_pwd": {
+            "type": "boolean"
+        },
+        "is_single_parent": {
+            "type": "boolean"
+        },
+        "is_indigent": {
+            "type": "boolean"
+        },
+        "purok_key": {
+            "$ref": "common.schema.json#/$defs/nullable_key_ref"
+        },
+        "street_address": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "is_permanent_resident": {
+            "type": "boolean"
+        },
+        "residing_since": {
+            "$ref": "common.schema.json#/$defs/nullable_date"
+        },
+        "alternate_address": {
+            "type": ["string", "null"],
+            "maxLength": 1000
+        },
+        "mobile_number": {
+            "$ref": "common.schema.json#/$defs/nullable_mobile_number"
+        },
+        "email": {
+            "type": ["string", "null"],
+            "format": "email",
+            "maxLength": 255
+        },
+        "facebook_url": {
+            "type": ["string", "null"],
+            "maxLength": 255,
+            "pattern": "^https?://\\S+$"
+        },
+        "is_deceased": {
+            "type": "boolean"
+        },
+        "deceased_on": {
+            "$ref": "common.schema.json#/$defs/nullable_date"
+        },
+        "cause_of_death": {
+            "type": ["string", "null"],
+            "maxLength": 255
+        },
+        "spouse_key": {
+            "$ref": "common.schema.json#/$defs/nullable_key_ref"
+        },
+        "photo": {
+            "$ref": "common.schema.json#/$defs/nullable_attachment_path"
+        },
+        "photo_taken_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "sectors": {
+            "type": "array",
+            "uniqueItems": true,
+            "maxItems": 50,
+            "items": {
+                "$ref": "common.schema.json#/$defs/label"
+            }
+        },
+        "color_category_key": {
+            "$ref": "common.schema.json#/$defs/nullable_key_ref"
+        },
+        "is_incomplete": {
+            "type": "boolean"
+        },
+        "created_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "updated_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        },
+        "deleted_at": {
+            "$ref": "common.schema.json#/$defs/nullable_date_time"
+        }
+    }
+}
